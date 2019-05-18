@@ -1,42 +1,29 @@
 package com.example.assignment3contacts;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.example.assignment3contacts.models.Contact;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MViewHolder> {
     private ArrayList<Contact> mContactList;
     private LayoutInflater layoutInflater;
-    private Context context;
-    private TextView textViewletters;
 
     public ListAdapter(ArrayList<Contact> mContactList,  Context context) {
         this.mContactList = mContactList;
         this.layoutInflater = LayoutInflater.from(context);
-        this.context = context;
-        this.textViewletters = new TextView(context);
-    }
-
-    public TextView getTextViewletters() {
-        return textViewletters;
     }
 
     @NonNull
     @Override
     public MViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = layoutInflater.inflate(R.layout.view_holder, viewGroup, false);
-        return new MViewHolder(view, this);
+        return new MViewHolder(view);
     }
 
     @Override
@@ -75,22 +62,17 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MViewHolder> {
     }
 
     public class MViewHolder extends RecyclerView.ViewHolder{
-        private Context context;
         private TextView textView1;
         private TextView textView2;
         private TextView textView3;
         private TextView textView4;
-        private ListAdapter listAdapter;
-        private LinearLayout linearLayout;
 
-        public MViewHolder(@NonNull View itemView, ListAdapter listAdapter) {
+        public MViewHolder(@NonNull View itemView) {
             super(itemView);
             this.textView1 = itemView.findViewById(R.id.textView1);
             this.textView2 = itemView.findViewById(R.id.textView2);
             this.textView3 = itemView.findViewById(R.id.textView3);
             this.textView4 = itemView.findViewById(R.id.textView4);
-            this.linearLayout = itemView.findViewById(R.id.linearLayoutViewHolder);
-            this.listAdapter = listAdapter;
         }
 
         public void bind(Contact contact, int controller, String letter2, String letter1){

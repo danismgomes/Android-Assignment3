@@ -15,7 +15,6 @@ import com.example.assignment3contacts.models.ContactList;
 import com.example.assignment3contacts.network.ContactClient;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
