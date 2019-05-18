@@ -48,7 +48,6 @@ public class AddContact extends AppCompatActivity {
             finish();
         } else {
             arrayList.clear();
-            Toast.makeText(this, "Please enter a phone number valid (10 numbers)",Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -56,17 +55,20 @@ public class AddContact extends AppCompatActivity {
     public boolean isValidPhoneNumber(String number){
         String regexStr = "\\d+";
         if (number.length()!=10){
+            Toast.makeText(this, "Please enter a phone number valid (10 numbers)",Toast.LENGTH_SHORT).show();
             return false;
         }
         if (!number.matches(regexStr)){
+            Toast.makeText(this, "Please enter a phone number valid (only numbers)",Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
     }
 
     public boolean isValidName(String name){
-        String regexStr = "^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}$";
+        String regexStr = "^[a-zA-Z]{2,}(?: [a-zA-Z]+){1,4}$";
         if (!name.matches(regexStr)){
+            Toast.makeText(this, "Please enter a name valid (first name+last name)",Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;
