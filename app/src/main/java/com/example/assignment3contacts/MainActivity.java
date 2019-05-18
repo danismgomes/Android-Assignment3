@@ -15,6 +15,7 @@ import com.example.assignment3contacts.models.ContactList;
 import com.example.assignment3contacts.network.ContactClient;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        Call<ContactList> request = ContactClient.getContacts(5);
+        Call<ContactList> request = ContactClient.getContacts(30);
 
         request.enqueue(new Callback<ContactList>() {
             @Override
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 //Error Handling
             }
         });
+
     }
 
     public void addButtonClicked(View view) {

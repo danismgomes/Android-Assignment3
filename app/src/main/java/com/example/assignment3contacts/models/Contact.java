@@ -3,6 +3,8 @@ package com.example.assignment3contacts.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Comparator;
+
 public class Contact {
 
     public Contact(String name, String cell) {
