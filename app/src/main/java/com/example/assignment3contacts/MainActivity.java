@@ -15,6 +15,8 @@ import com.example.assignment3contacts.models.ContactList;
 import com.example.assignment3contacts.network.ContactClient;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,12 +44,6 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful()){
                     // returns an ArrayList of contacts
                     mContactList = response.body().getContactList();
-                    for (Contact contact:
-                    mContactList) {
-                        Log.d(TAG, "Name: "+contact.getName());
-                        Log.d(TAG,"Phone: "+contact.getCell());
-
-                    }
                 }
                 listAdapter = new ListAdapter(mContactList, context);
                 recyclerView = findViewById(R.id.recyclerView);
@@ -80,6 +76,12 @@ public class MainActivity extends AppCompatActivity {
 
                 Contact contact = new Contact(reply.get(0), reply.get(1));
                 mContactList.add(contact);
+                Collections.sort(mContactList, new Comparator<Contact>(){
+                    public int compare(Contact c1, Contact c2) {
+                        return (c1.getName()+"").compareToIgnoreCase(c2.getName()+"");
+                    }
+                });
+                recyclerView.getAdapter().notifyDataSetChanged();
             }
         }
     }

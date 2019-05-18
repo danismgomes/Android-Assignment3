@@ -28,7 +28,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MViewHolder mViewHolder, int i) {
-        int controler;
+        int controller = 0;
         Contact contact = mContactList.get(i);
         Contact contact2;
         if (i+1<mContactList.size()){
@@ -43,17 +43,15 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.MViewHolder> {
         string2 = (string2.charAt(0)+"").toUpperCase();
 
         if (i == 0){
-            controler = 2;
+            controller = 2;
             if(string1.compareTo(string2)==0){
-                controler = 3;
+                controller = 3;
             }
         } else if(string1.compareTo(string2)!=0){
-            controler = 1;
-        } else {
-            controler = 0;
+            controller = 1;
         }
 
-        mViewHolder.bind(contact, controler, string2, string1);
+        mViewHolder.bind(contact, controller, string2, string1);
     }
 
     @Override
