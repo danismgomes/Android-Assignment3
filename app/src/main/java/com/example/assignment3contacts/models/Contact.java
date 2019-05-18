@@ -5,6 +5,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class Contact {
 
+    public Contact(String name, String cell) {
+        this.name = setName(name);
+        this.cell = cell;
+    }
+
     @SerializedName("gender")
     @Expose
     private String gender;
@@ -45,6 +50,10 @@ public class Contact {
         return cell;
     }
 
+    public Name setName(String name){
+        return new Name(name);
+    }
+
     class Location {
         @SerializedName("street")
         @Expose
@@ -74,9 +83,17 @@ public class Contact {
         public String getPostcode() {
             return postcode;
         }
+
+
     }
 
     class Name{
+
+        public Name(String first) {
+            this.first = first;
+            this.last = "";
+        }
+
         @SerializedName("first")
         @Expose
         private String first;
@@ -90,6 +107,14 @@ public class Contact {
 
         public String getLast() {
             return last;
+        }
+
+        public void setFirst(String first) {
+            this.first = first;
+        }
+
+        public void setLast(String last) {
+            this.last = last;
         }
 
         @Override

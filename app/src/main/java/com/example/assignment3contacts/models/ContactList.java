@@ -13,4 +13,9 @@ public class ContactList {
     public ArrayList<Contact> getContactList() {
         return contactList;
     }
+
+    public void addContactList(Contact contact) {
+        contactList.add(contact);
+
+    }
 }

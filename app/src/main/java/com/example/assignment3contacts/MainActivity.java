@@ -1,11 +1,14 @@
 package com.example.assignment3contacts;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.example.assignment3contacts.models.Contact;
 import com.example.assignment3contacts.models.ContactList;
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private ListAdapter listAdapter;
     private RecyclerView recyclerView;
     public static final String TAG = MainActivity.class.getSimpleName();
+    public static final int TEXT_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        Call<ContactList> request = ContactClient.getContacts(30);
+        Call<ContactList> request = ContactClient.getContacts(5);
 
         request.enqueue(new Callback<ContactList>() {
             @Override
@@ -56,5 +60,26 @@ public class MainActivity extends AppCompatActivity {
                 //Error Handling
             }
         });
+    }
+
+    public void addButtonClicked(View view) {
+        Intent intent = new Intent(MainActivity.this, AddContact.class);
+        startActivityForResult(intent, TEXT_REQUEST);
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == TEXT_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                ArrayList<String> reply = data.getStringArrayListExtra(AddContact.EXTRA_REPLY);
+
+                Contact contact = new Contact(reply.get(0), reply.get(1));
+                mContactList.add(contact);
+            }
+        }
     }
 }
