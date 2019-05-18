@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.assignment3contacts.models.Contact;
 import com.example.assignment3contacts.models.ContactList;
@@ -37,16 +38,23 @@ public class AddContact extends AppCompatActivity {
 
 
     public void submitOnClick(View view) {
-                arrayList.add(nameET.getText().toString());
-                arrayList.add(phoneET.getText().toString());
-                Intent intent = new Intent();
-                intent.putStringArrayListExtra(EXTRA_REPLY, arrayList);
-                setResult(RESULT_OK, intent);
-                finish();
+        arrayList.add(nameET.getText().toString());
+        arrayList.add(phoneET.getText().toString());
+
+        if (isValidName(arrayList.get(0))&&isValidPhoneNumber(arrayList.get(1))){
+            Intent intent = new Intent();
+            intent.putStringArrayListExtra(EXTRA_REPLY, arrayList);
+            setResult(RESULT_OK, intent);
+            finish();
+        } else {
+            arrayList.clear();
+            Toast.makeText(this, "Please enter a phone number valid (10 numbers)",Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     public boolean isValidPhoneNumber(String number){
-        String regexStr = "^[0-9]$";
+        String regexStr = "\\d+";
         if (number.length()!=10){
             return false;
         }
@@ -56,12 +64,9 @@ public class AddContact extends AppCompatActivity {
         return true;
     }
 
-    public boolean isValidName(String number){
-        String regexStr = "^[0-9]$";
-        if (number.length()!=10){
-            return false;
-        }
-        if (!number.matches(regexStr)){
+    public boolean isValidName(String name){
+        String regexStr = "^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}$";
+        if (!name.matches(regexStr)){
             return false;
         }
         return true;
